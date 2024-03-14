@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>近期医学会议</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h2>近期医学会议{{ date }}</h2>
+
+    <div class="tab">
+      <button
+        class="tablinks"
+        onclick="openTab(event, 'domestic')"
+        id="defaultOpen"
+      >
+        国内医学会议
+      </button>
+      <button class="tablinks" onclick="openTab(event, 'international')">
+        国际医学会议
+      </button>
+    </div>
+
+    <div id="domestic" class="tabcontent">
+      <h3>国内医学会议</h3>
+      <ul>
+        {% for conference in domestic %}
+        <li>
+          <a href="{{ conference[3] }}" target="_blank">{{ conference[0] }}</a>
+          - {{ conference[1] }}，{{ conference[2] }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div id="international" class="tabcontent">
+      <h3>国际医学会议</h3>
+      <ul>
+        {% for conference in international %}
+        <li>
+          <a href="{{ conference[3] }}" target="_blank">{{ conference[0] }}</a>
+          - {{ conference[1] }}，{{ conference[2] }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <script>
+      document.getElementById("defaultOpen").click();
+
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+    </script>
+  </body>
+</html>
